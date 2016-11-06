@@ -35,15 +35,15 @@ public class LetterHandler {
 	
 	//递归组合字符串回文
 	private static void recComposite(List<Letter> letterList, Map<String, Letter> letterMap, String beforeStr, int[] targetIndex) {
-		for (int k = 0; k < letterList.size(); k++) {
+		for (int curIndex = 0; curIndex < letterList.size(); curIndex++) {
 			String composite = "";
-			if (!isContainSameIndex(k, targetIndex)) {
-				composite = beforeStr + letterList.get(k);  
+			if (!isContainSameIndex(curIndex, targetIndex)) {
+				composite = beforeStr + letterList.get(curIndex);  
 				if (isTheLastChar(targetIndex, letterList)) {
 					addToMap(letterMap, composite);
 					break;
 				} else {
-					int[] targetIndexs = appendTargetIndexs(k, targetIndex);
+					int[] targetIndexs = appendTargetIndexs(curIndex, targetIndex);
 					recComposite(letterList, letterMap, composite, targetIndexs);
 				}
 			} else {
@@ -74,9 +74,9 @@ public class LetterHandler {
 	}
 	
 	//组转下标数组
-	private static int[] appendTargetIndexs(int beforeIndex, int[] targetIndex) {
+	private static int[] appendTargetIndexs(int appendIndex, int[] targetIndex) {
 		int[] targetIndexs = new int[targetIndex.length + 1];
-		targetIndexs[0] = beforeIndex;
+		targetIndexs[0] = appendIndex;
 		for (int i = 0; i < targetIndex.length; i++) {
 			targetIndexs[i + 1] = targetIndex[i];
 		}
